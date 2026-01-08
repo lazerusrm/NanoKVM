@@ -246,8 +246,8 @@ export const Absolute = () => {
       const finalX = Math.max(0, Math.min(1, x));
       const finalY = Math.max(0, Math.min(1, y));
 
-      const hexX = Math.floor(0x7fff * finalX) + 0x0001;
-      const hexY = Math.floor(0x7fff * finalY) + 0x0001;
+      const hexX = Math.floor(0x7fff * finalX);
+      const hexY = Math.floor(0x7fff * finalY);
 
       return { x: hexX, y: hexY };
     }
