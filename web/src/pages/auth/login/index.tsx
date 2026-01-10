@@ -48,6 +48,12 @@ export const Login = (): ReactElement => {
         setMsg('');
         setToken(rsp.data.token);
 
+        // Force password change if required before allowing access
+        if (rsp.data.requires_password_change) {
+          navigate('/auth/password', { replace: true });
+          return;
+        }
+
         navigate('/', { replace: true });
         window.location.reload();
       })

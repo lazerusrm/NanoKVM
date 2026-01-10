@@ -5,10 +5,9 @@ import { Resolution } from '@/types';
 export const isHdmiEnabledAtom = atom(true);
 
 // video mode
-// direct: stream H.264 over HTTP
-// h264: stream H.264 over WebRTC
-// mjpeg: stream JPEG over HTTP
-export const videoModeAtom = atom('');
+// h264: stream H.264 over WebRTC (default, best quality + low latency)
+// mjpeg: stream JPEG over HTTP (fallback for compatibility)
+export const videoModeAtom = atom('h264');
 
 export const videoScaleAtom = atom<number>(1.0);
 
