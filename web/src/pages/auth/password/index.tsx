@@ -20,7 +20,7 @@ export const Password = () => {
     }
   }, [msg]);
 
-  function changePassword(values: any) {
+  async function changePassword(values: any) {
     if (values.password !== values.password2) {
       setMsg(t('auth.differentPassword'));
       return;
@@ -35,7 +35,7 @@ export const Password = () => {
     }
 
     const username = values.username;
-    const password = encrypt(values.password);
+    const password = await encrypt(values.password);
 
     api
       .changePassword(username, password)

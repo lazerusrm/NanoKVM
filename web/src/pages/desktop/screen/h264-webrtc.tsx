@@ -38,7 +38,7 @@ export const H264Webrtc = () => {
         videoOfferSent.current = true;
         const offer = await video.createOffer({
           offerToReceiveVideo: true,
-          offerToReceiveAudio: false
+          offerToReceiveAudio: true
         });
 
         await video.setLocalDescription(offer);
@@ -57,8 +57,11 @@ export const H264Webrtc = () => {
     };
 
     video.ontrack = (event) => {
-      if (videoRef.current && event.track.kind === 'video') {
-        videoRef.current.srcObject = new MediaStream([event.track]);
+      if (videoRef.current) {
+        if (!videoRef.current.srcObject) {
+          videoRef.current.srcObject = new MediaStream();
+        }
+        (videoRef.current.srcObject as MediaStream).addTrack(event.track);
       }
     };
 
@@ -72,6 +75,7 @@ export const H264Webrtc = () => {
       };
 
       video.addTransceiver('video', { direction: 'recvonly' });
+      video.addTransceiver('audio', { direction: 'recvonly' });
     };
 
     ws.onmessage = (event) => {
@@ -193,7 +197,6 @@ export const H264Webrtc = () => {
               ? { width: resolution.width, height: resolution.height, objectFit: 'cover' }
               : { maxWidth: '100%', maxHeight: '100%', objectFit: 'scale-down' })
           }}
-          muted
           autoPlay
           playsInline
           controls={false}

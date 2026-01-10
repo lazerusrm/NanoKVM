@@ -30,12 +30,12 @@ export const Login = (): ReactElement => {
     }
   }, [msg]);
 
-  function login(values: any) {
+  async function login(values: any) {
     if (isLoading) return;
     setIsloading(true);
 
     const username = values.username;
-    const password = encrypt(values.password);
+    const password = await encrypt(values.password);
 
     api
       .login(username, password)
