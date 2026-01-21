@@ -3,7 +3,7 @@ import { useAtomValue } from 'jotai';
 import { CheckIcon, SquareActivityIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { updateScreen } from '@/api/vm';
+import { updateScreen, setAutoQuality } from '@/api/vm';
 import { setQuality as setCookie } from '@/lib/localstorage.ts';
 import { videoModeAtom } from '@/jotai/screen.ts';
 
@@ -19,6 +19,7 @@ export const Quality = ({ quality, setQuality }: QualityProps) => {
   const videoMode = useAtomValue(videoModeAtom);
 
   const qualityList = [
+    { key: 0, label: t('screen.qualityAuto') },
     { key: 1, label: t('screen.qualityLossless') },
     { key: 2, label: t('screen.qualityHigh') },
     { key: 3, label: t('screen.qualityMedium') },
@@ -26,6 +27,17 @@ export const Quality = ({ quality, setQuality }: QualityProps) => {
   ];
 
   async function update(key: number) {
+    if (key === 0) {
+      // Enable auto quality mode
+      await setAutoQuality(true);
+      setQuality(key);
+      setCookie(key);
+      return;
+    }
+
+    // Disable auto quality mode when selecting manual
+    await setAutoQuality(false);
+
     const value = videoMode === 'mjpeg' ? QualityMap.get(key)! : BitRateMap.get(key)!;
 
     const rsp = await updateScreen('quality', value);
@@ -48,7 +60,7 @@ export const Quality = ({ quality, setQuality }: QualityProps) => {
           <div className="flex h-[14px] w-[20px] items-end text-blue-500">
             {item.key === quality && <CheckIcon size={14} />}
           </div>
-          <span className="flex w-[50px]">{item.label}</span>
+          <span className="flex w-[60px]">{item.label}</span>
         </div>
       ))}
     </>

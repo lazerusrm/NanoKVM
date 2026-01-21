@@ -59,6 +59,7 @@ const de = {
       fps: 'FPS',
       customizeFps: 'Anpassen',
       quality: 'Qualität',
+      qualityAuto: 'Automatisch',
       qualityLossless: 'Verlustfrei',
       qualityHigh: 'Hoch',
       qualityMedium: 'Mittel',

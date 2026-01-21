@@ -58,6 +58,7 @@ const zh = {
       fps: '帧率',
       customizeFps: '自定义',
       quality: '图像质量',
+      qualityAuto: '自动',
       qualityLossless: '无损',
       qualityHigh: '高',
       qualityMedium: '中',

@@ -164,3 +164,13 @@ export function setTLS(enabled: boolean) {
 export function reboot() {
   return http.post('/api/vm/system/reboot');
 }
+
+// get quality stats (includes auto mode state)
+export function getQuality() {
+  return http.get('/api/stream/quality');
+}
+
+// set auto quality mode
+export function setAutoQuality(auto: boolean) {
+  return http.post('/api/stream/quality', { auto });
+}

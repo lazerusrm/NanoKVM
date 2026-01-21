@@ -60,6 +60,7 @@ const en = {
       fps: 'FPS',
       customizeFps: 'Customize',
       quality: 'Quality',
+      qualityAuto: 'Auto',
       qualityLossless: 'Lossless',
       qualityHigh: 'High',
       qualityMedium: 'Medium',
